@@ -36,7 +36,7 @@ maindloop: main.c loopd
 maindrec: main.c recursived 
 	gcc -Wall -fPIC main.c ./libclassrec.so -o maindrec
 
-.PHONY: clean
+.PHONY: clean all loops recursives loopd recursived
 
 clean: 
 	rm -f *.o *.a *.so mains maindloop maindrec
