@@ -18,11 +18,11 @@ libclassrec.a: basicClassification.o advancedClassificationRecursion.o
 	ar -rc libclassrec.a basicClassification.o advancedClassificationRecursion.o 
 	
 libclassrec.so: basicClassification.o advancedClassificationRecursion.o
-	gcc -shared -o libclassrec.so basicClassification.c advancedClassificationRecursion.c 
+	gcc -shared -o libclassrec.so basicClassification.o advancedClassificationRecursion.o
 	export LD_LIBARY_PATH=.:$LD_LIBARY_PATH
 	
-libclassloops.so: basicClassification.c advancedClassificationLoop.c
-	gcc -shared -o libclassloops.so basicClassification.c advancedClassificationLoop.c
+libclassloops.so: basicClassification.o advancedClassificationLoop.o
+	gcc -shared -o libclassloops.so basicClassification.o advancedClassificationLoop.o
 	export LD_LIBARY_PATH=.:$LD_LIBARY_PATH
 
 
