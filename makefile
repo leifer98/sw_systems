@@ -1,18 +1,29 @@
 all: loops recursives recursived loopd mains maindloop maindrec
 
-loops: basicClassification.o advancedClassificationLoop.o
+loops: libclassloops.a
+
+recursives: libclassrec.a
+
+loopd: libclassloops.so
+
+recursived: libclassrec.so
+
+
+
+
+libclassloops.a: basicClassification.o advancedClassificationLoop.o
 	ar -rc libclassloops.a basicClassification.o advancedClassificationLoop.o 
 	
-recursives: basicClassification.o advancedClassificationRecursion.o
+libclassrec.a: basicClassification.o advancedClassificationRecursion.o
 	ar -rc libclassrec.a basicClassification.o advancedClassificationRecursion.o 
 	
-recursived: basicClassification.o advancedClassificationRecursion.o
+libclassrec.so: basicClassification.o advancedClassificationRecursion.o
 	gcc -shared -o libclassrec.so basicClassification.c advancedClassificationRecursion.c 
+	export LD_LIBARY_PATH=.:$LD_LIBARY_PATH
 	
-loopd: basicClassification.c advancedClassificationLoop.c
+libclassloops.so: basicClassification.c advancedClassificationLoop.c
 	gcc -shared -o libclassloops.so basicClassification.c advancedClassificationLoop.c
-
-
+	export LD_LIBARY_PATH=.:$LD_LIBARY_PATH
 
 
 	
