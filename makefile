@@ -27,14 +27,14 @@ libclassloops.so: basicClassification.c advancedClassificationLoop.c
 
 
 	
-mains: main.c recursives 
-	gcc -Wall main.c ./libclassrec.a -L. -o mains
+mains: main.o recursives 
+	gcc -Wall main.o ./libclassrec.a -L. -o mains
 	
-maindloop: main.c loopd 
-	gcc -Wall -fPIC main.c ./libclassloops.so -o maindloop
+maindloop: main.o loopd 
+	gcc -Wall -fPIC main.o ./libclassloops.so -o maindloop
 	
-maindrec: main.c recursived 
-	gcc -Wall -fPIC main.c ./libclassrec.so -o maindrec
+maindrec: main.o recursived 
+	gcc -Wall -fPIC main.o ./libclassrec.so -o maindrec
 
 .PHONY: clean all loops recursives loopd recursived
 
