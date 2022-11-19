@@ -14,7 +14,7 @@ int main()
 		int result = isArmstrong(i);
 		if (result==1)
 		{
-			printf("%d ", i);
+			printf(" %d", i);
 		}
 	}
 	printf("\nThe Palindromes are: ");
@@ -23,7 +23,7 @@ int main()
 		int result = isPalindrome(i);
 		if (result==1)
 		{
-			printf("%d ", i);
+			printf(" %d", i);
 		}
 	}
 	printf("\nThe Prime numbers are: ");
@@ -32,19 +32,17 @@ int main()
 		int result = isPrime(i);
 		if (result==1)
 		{
-			printf("%d ", i);
+			printf(" %d", i);
 		}
 	}
-	printf("\nThe Strong numbers are: ");
+	printf("\nThe Strong numbers are:");
 	for(int i=num1; i<=num2; i++)
 	{
 		int result = isStrong(i);
 		if (result==1)
 		{
-			printf("%d ", i);
+			printf(" %d", i);
 		}
 	}
-	printf("\n");
-	
 	return 0;
 }
