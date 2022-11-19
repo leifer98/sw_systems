@@ -1,4 +1,4 @@
-all: recursived loopd loops recursives  mains maindloop maindrec
+all: loopd recursived loops recursives  mains maindloop maindrec
 
 loops: libclassloops.a
 

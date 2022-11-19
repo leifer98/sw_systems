@@ -8,7 +8,7 @@ int main()
 	scanf("%d", &num1);
 	//printf("\nEnter your second number: ");
 	scanf("%d", &num2);
-	printf("\nThe Armstrong numbers are: ");
+	printf("The Armstrong numbers are:");
 	for(int i=num1; i<=num2; i++)
 	{
 		int result = isArmstrong(i);
@@ -17,7 +17,7 @@ int main()
 			printf(" %d", i);
 		}
 	}
-	printf("\nThe Palindromes are: ");
+	printf("\nThe Palindromes are:");
 	for(int i=num1; i<=num2; i++)
 	{
 		int result = isPalindrome(i);
@@ -26,7 +26,7 @@ int main()
 			printf(" %d", i);
 		}
 	}
-	printf("\nThe Prime numbers are: ");
+	printf("\nThe Prime numbers are:");
 	for(int i=num1; i<=num2; i++)
 	{
 		int result = isPrime(i);
