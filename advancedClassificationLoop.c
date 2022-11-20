@@ -41,7 +41,7 @@ int isPalindrome(int num)
 		}
 		num2 %= size;
 		num2 /= 10;
-		size /= 10;
+		size /= 100;
 		count--;
 	}
 	return 1;
