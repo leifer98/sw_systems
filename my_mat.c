@@ -15,7 +15,6 @@ int d(int mat[10][10], int x, int y) {
             }
         }
     }
-
     
     for (k = 0 ; k < 10 ; k++) {
         // printf("\n k=%d, \n", k);
@@ -27,10 +26,7 @@ int d(int mat[10][10], int x, int y) {
         // }
         for (i = 0 ; i < 10 ; i++) {
             for (j = 0 ; j < 10 ; j++) {
-                    if (i == 6 && j == 7 && k==5) {
-                        printf("%d,%d,%d \n", dat[k][j], (dat[i][k]), dat[i][j]);
-                    }
-                    sum = ((dat[k][j]) + (dat[i][k]) );
+                    sum = ((dat[i][k]) + (dat[k][j]));
                     if (sum < dat[i][j]) {
                         dat[i][j] = sum;
                         dat[j][i] = sum;
@@ -42,7 +38,6 @@ int d(int mat[10][10], int x, int y) {
             }
         }
     }
-
     return dat[x][y]; //need to add array for dynamic algo to restore previous results.
 }
 

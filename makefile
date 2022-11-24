@@ -1,10 +1,9 @@
-all: runit
+all: connections
 
-runit: main.c my_mat.c
-	gcc -Wall -c main.c my_mat.c
-	gcc -Wall -o program main.o my_mat.o
+connections: main.o my_mat.o
+	gcc -Wall -g -o connections main.o my_mat.o
 
-.PHONY: clean all loops recursives loopd recursived
+.PHONY: clean all connections
 
 clean: 
-	rm -f *.o *.a *.so mains maindloop maindrec
+	rm -f *.o *.a *.so connections
