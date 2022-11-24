@@ -1,42 +1,30 @@
-all: recursived loopd recursives loops mains maindloop maindrec
-
+all: mains maindloop maindrec recursived loopd recursives loops 
+	
 loops: libclassloops.a
-
 recursives: libclassrec.a
+loopd: libclassrec.so
+recursived: libclassloops.so
 
-loopd: libclassloops.so
+mains: libclassrec.a main.o
+	gcc -Wall -g main.o ./libclassrec.a -L. -o mains
+	
+maindloop: libclassloops.so main.o 
+	gcc -Wall -g main.o ./libclassloops.so -L. -o maindloop
+	
+maindrec: libclassrec.so main.o 
+	gcc -Wall -g main.o ./libclassrec.so -L. -o maindrec
 
-recursived: libclassrec.so
-
-
-
-
-libclassloops.a: basicClassification.o advancedClassificationLoop.o
+libclassloops.a: basicClassification.o advancedClassificationLoop.o NumClass.h
 	ar -rcs libclassloops.a basicClassification.o advancedClassificationLoop.o 
 	
-libclassrec.a: basicClassification.o advancedClassificationRecursion.o
+libclassrec.a: basicClassification.o advancedClassificationRecursion.o NumClass.h
 	ar -rcs libclassrec.a basicClassification.o advancedClassificationRecursion.o 
 	
-libclassrec.so: basicClassification.c advancedClassificationRecursion.c
-	gcc -Wall -fPIC -c basicClassification.c advancedClassificationRecursion.c
-	gcc -shared -o libclassrec.so basicClassification.o advancedClassificationRecursion.o
-	export LD_LIBARY_PATH=.:$LD_LIBARY_PATH
+libclassrec.so: basicClassification.o advancedClassificationRecursion.o NumClass.h
+	gcc -shared -fPIC -o libclassrec.so basicClassification.o advancedClassificationRecursion.o
 	
-libclassloops.so: basicClassification.c advancedClassificationLoop.c
-	gcc -Wall -fPIC -c basicClassification.c advancedClassificationLoop.c
-	gcc -shared -o libclassloops.so basicClassification.o advancedClassificationLoop.o
-	export LD_LIBARY_PATH=.:$LD_LIBARY_PATH
-
-
-	
-mains: main.c recursives
-	gcc -Wall main.c ./libclassrec.a -L. -o mains
-	
-maindloop: main.c loopd
-	gcc -Wall main.c ./libclassloops.so -L. -o maindloop
-	
-maindrec: main.c recursived
-	gcc -Wall main.c ./libclassrec.so -L. -o maindrec
+libclassloops.so: basicClassification.o advancedClassificationLoop.o NumClass.h
+	gcc -shared -fPIC -o libclassloops.so basicClassification.o advancedClassificationLoop.o
 
 .PHONY: clean all loops recursives loopd recursived
 
