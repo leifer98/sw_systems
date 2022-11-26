@@ -53,7 +53,7 @@ void b_function(int mat[10][10], int i, int j) {
 void c_function(int mat[10][10], int x, int y) {
     int result = d(mat,x,y);
     if (result < 100) {
-        printf("%d", result);
+        printf("%d\n", result);
         return;
     } else{
         printf("-1");        
@@ -64,7 +64,7 @@ void a_function( int mat[10][10] ) {
 	for (int i = 0 ; i < 10 ; i++) {
 		for (int j = 0 ; j < 10 ; j++) {
 			int num;
-					scanf("%d\n", &num);
+					scanf("%d", &num);
 
 					mat[i][j] = num;
 		}		
