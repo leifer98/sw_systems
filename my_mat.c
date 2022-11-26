@@ -45,16 +45,28 @@ void b_function(int mat[10][10], int i, int j) {
     int result = d(mat,i,j);
     if (result < 100) {
         printf("True\n");
-        return;
+    } else {
+        printf("False\n");
     }
-    printf("False\n");
-    return;
 }
 
-int c_function(int mat[10][10], int x, int y) {
+void c_function(int mat[10][10], int x, int y) {
     int result = d(mat,x,y);
     if (result < 100) {
-        return result;
+        printf("%d", result);
+        return;
+    } else{
+        printf("-1");        
     }
-    return -1;
+}
+
+void a_function( int mat[10][10] ) {
+	for (int i = 0 ; i < 10 ; i++) {
+		for (int j = 0 ; j < 10 ; j++) {
+			int num;
+					scanf("%d\n", &num);
+
+					mat[i][j] = num;
+		}		
+	}
 }
