@@ -43,7 +43,7 @@ int d(int mat[10][10], int x, int y) {
 
 void b_function(int mat[10][10], int i, int j) {
     int result = d(mat,i,j);
-    if (result < 100) {
+    if (result < 100 && result > 0) {
         printf("True\n");
     } else {
         printf("False\n");
