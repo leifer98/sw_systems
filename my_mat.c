@@ -52,11 +52,11 @@ void b_function(int mat[10][10], int i, int j) {
 
 void c_function(int mat[10][10], int x, int y) {
     int result = d(mat,x,y);
-    if (result < 100) {
+    if (result < 100 && result > 0) {
         printf("%d\n", result);
         return;
     } else{
-        printf("-1");        
+        printf("-1\n");        
     }
 }
 
