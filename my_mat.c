@@ -17,13 +17,6 @@ int d(int mat[10][10], int x, int y) {
     }
     
     for (k = 0 ; k < 10 ; k++) {
-        // printf("\n k=%d, \n", k);
-        // for (int i = 0 ; i < 10 ; i++) {
-        //     for (int j = 0 ; j < 10 ; j++) {
-        //         printf("%d ,\t", dat[i][j]);
-        //     }
-        //     printf("\n");
-        // }
         for (i = 0 ; i < 10 ; i++) {
             for (j = 0 ; j < 10 ; j++) {
                     sum = ((dat[i][k]) + (dat[k][j]));
@@ -61,12 +54,11 @@ void c_function(int mat[10][10], int x, int y) {
 }
 
 void a_function( int mat[10][10] ) {
+    int num;
 	for (int i = 0 ; i < 10 ; i++) {
 		for (int j = 0 ; j < 10 ; j++) {
-			int num;
-					scanf("%d", &num);
-
-					mat[i][j] = num;
+            scanf("%d", &num);
+            mat[i][j] = num;
 		}		
 	}
 }
