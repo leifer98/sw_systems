@@ -11,7 +11,7 @@ int d(int mat[10][10], int x, int y) {
             } else if (mat[i][j] > 0) {
                 dat[i][j] = (1 + mat[i][j]) - 1;
             } else {
-                dat[i][j] = 100;                
+                dat[i][j] = __INT_MAX__;                
             }
         }
     }
@@ -19,19 +19,18 @@ int d(int mat[10][10], int x, int y) {
     for (k = 0 ; k < 10 ; k++) {
         for (i = 0 ; i < 10 ; i++) {
             for (j = 0 ; j < 10 ; j++) {
-                    sum = ((dat[i][k]) + (dat[k][j]));
-                    if (sum < dat[i][j]) {
-                        dat[i][j] = sum;
-                        dat[j][i] = sum;
+                    if (__INT_MAX__ !=  dat[i][k] && __INT_MAX__ !=  dat[k][j]) {
+                        sum = ((dat[i][k]) + (dat[k][j]));
+                        if (sum < dat[i][j]) {
+                            dat[i][j] = sum;
+                            dat[j][i] = sum;
+                        }
                     }
-                    if (dat[i][j] > 100){
-                        dat[i][j] = 100;
-                        dat[j][i] = 100;
-                    }
+                    
             }
         }
     }
-    return dat[x][y]; //need to add array for dynamic algo to restore previous results.
+    return dat[x][y];
 }
 
 void b_function(int mat[10][10], int i, int j) {

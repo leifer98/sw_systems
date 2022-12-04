@@ -1,9 +1,15 @@
-all: connections
+CC = gcc
+CFLAGS = -g -Wall
 
-connections: main.o my_mat.o
-	gcc -Wall -g -o connections main.o my_mat.o
+all: libmy_mat.a connections
 
-.PHONY: clean all connections
+libmy_mat.a: main.o my_mat.o my_mat.h
+	ar -rc libmy_mat.a main.o my_mat.o
 
-clean: 
-	rm -f *.o *.a *.so connections
+connections: libmy_mat.a main.o
+	$(CC) $(CFLAGS) main.o ./libmy_mat.a -L. -o connections
+
+.PHONY: all clean
+
+clean:
+	rm connections *.o *.a
