@@ -54,9 +54,10 @@ void c_function(int mat[10][10], int x, int y) {
 
 void a_function( int mat[10][10] ) {
     int num;
+    char ch1;
 	for (int i = 0 ; i < 10 ; i++) {
 		for (int j = 0 ; j < 10 ; j++) {
-            scanf("%d", &num);
+            scanf("%c%d", &ch1 , &num);
             mat[i][j] = num;
 		}		
 	}
