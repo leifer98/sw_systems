@@ -1,9 +1,9 @@
 #include <stdio.h>
 
 int d(int mat[10][10], int x, int y) {
-    int dat[10][10];
+    int dat[10][10]; // d function acording to the algorithm
     int sum, i, j, k;
-
+    // initializing k = 0 for the algorithm
     for (i = 0 ; i < 10 ; i++) {
         for (j = 0 ; j < 10 ; j++) {
             if (i == j) {
@@ -11,11 +11,11 @@ int d(int mat[10][10], int x, int y) {
             } else if (mat[i][j] > 0) {
                 dat[i][j] = (1 + mat[i][j]) - 1;
             } else {
-                dat[i][j] = __INT_MAX__;                
+                dat[i][j] = __INT_MAX__; // max value               
             }
         }
     }
-    
+    // the algorithm itself
     for (k = 0 ; k < 10 ; k++) {
         for (i = 0 ; i < 10 ; i++) {
             for (j = 0 ; j < 10 ; j++) {
@@ -34,7 +34,7 @@ int d(int mat[10][10], int x, int y) {
 }
 
 void b_function(int mat[10][10], int i, int j) {
-    int result = d(mat,i,j);
+    int result = d(mat,i,j); // uses the c function and conclude the result for the b function
     if (result < 100 && result > 0) {
         printf("True\n");
     } else {
