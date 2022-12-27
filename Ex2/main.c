@@ -24,5 +24,6 @@ int main()
 		scanf("%c%c",&ch1, &c);
 
 	}
+
 	return 0;
 }

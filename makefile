@@ -1,15 +1,21 @@
 CC = gcc
 CFLAGS = -g -Wall
 
-all: libmy_mat.a connections
+all: libmy_sort.a libmy_txt.a isort txtfind
 
-libmy_mat.a: main.o my_mat.o my_mat.h
-	ar -rc libmy_mat.a main.o my_mat.o
+libmy_sort.a: isort.o header.o header.h
+	ar -rc libmy_sort.a isort.o header.o
 
-connections: libmy_mat.a main.o
-	$(CC) $(CFLAGS) main.o ./libmy_mat.a -L. -o connections
+libmy_txt.a: txtfind.o header.o header.h
+	ar -rc libmy_txt.a txtfind.o header.o
+
+isort: libmy_sort.a isort.o
+	$(CC) $(CFLAGS) isort.o ./libmy_sort.a -L. -o isort
+
+txtfind: libmy_txt.a txtfind.o
+	$(CC) $(CFLAGS) txtfind.o ./libmy_txt.a -L. -o txtfind
 
 .PHONY: all clean
 
 clean:
-	rm connections *.o *.a
+	rm isort txtfind *.o *.a
