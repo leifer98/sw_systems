@@ -20,10 +20,9 @@ pnode getNodeById(int id, pnode head);
 pedge newEdge(int weight, pnode endpoint, pedge next);
 pnode newNode(int num,pedge edges,pnode next);
 void build_graph_cmd(pnode *head);
-void insert_node_cmd(pnode *head);
-void delete_node_cmd(pnode *head);
+char insert_node_cmd(pnode *head);
+void delete_node_cmd(pnode *head, int node_num);
 void printGraph_cmd(pnode head); //for self debug
-void printNode_cmd(pnode head);
 void deleteGraph_cmd(pnode* head);
 void shortsPath_cmd(pnode head);
 void TSP_cmd(pnode head);
