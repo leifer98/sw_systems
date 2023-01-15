@@ -7,16 +7,18 @@ typedef struct edge_ {
     int weight;
     pnode endpoint;
     struct edge_ *next;
+    pnode source;
+    struct edge_ *nextB;
 } edge, *pedge;
+
 
 typedef struct GRAPH_NODE_ {
     int node_num;
+    int distance;
     pedge edges;
     struct GRAPH_NODE_ *next;
 } node, *pnode;
 
-void redirect_function(char ch, pnode *head);
-pnode getNodeById(int id, pnode head);
 pedge newEdge(int weight, pnode endpoint, pedge next);
 pnode newNode(int num,pedge edges,pnode next);
 void build_graph_cmd(pnode *head);

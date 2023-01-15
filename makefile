@@ -1,15 +1,19 @@
 CC = gcc
 CFLAGS = -g -Wall
 
-all: libgraph.a run
+all: run
 
-libgraph.a: main.o graph.o graph.h
-	ar -rc libgraph.a main.o graph.o
+graph.o: graph.c graph.h
+	$(CC) $(CFLAGS) -c graph.c -o graph.o
 
-run: libgraph.a main.o
-	$(CC) $(CFLAGS) main.o ./libgraph.a -L. -o run
+main.o: main.c graph.h graph.o
+	$(CC) $(CFLAGS) -c main.c -o main.o
+
+run: main.o graph.o
+	$(CC) $(CFLAGS) main.o graph.o -o run
+
 
 .PHONY: all clean
 
 clean:
-	rm run *.o *.a
+	rm run *.o
