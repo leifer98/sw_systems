@@ -214,11 +214,11 @@ void shortsPath_cmd(pnode head)
     // printGraph_cmd(head);
     if (pTheOne->distance == INT_MAX)
     {
-        printf("Dijsktra shortest path: %d\n", -1);
+        printf("Dijsktra shortest path: %d \n", -1);
     }
     else
     {
-        printf("Dijsktra shortest path: %d\n", pTheOne->distance);
+        printf("Dijsktra shortest path: %d \n", pTheOne->distance);
     }
 }
 int permute(pnode *arr, int start, int end, int *distances, pnode *arrOriginal)
@@ -334,8 +334,8 @@ void TSP_cmd(pnode head)
     // }
 
     int min = permute(arr, 0, length - 1, distances, arrOriginal);
-    if (min == INT_MAX) printf("TSP shortest path: %d\n", -1);
-    else printf("TSP shortest path: %d\n", min);
+    if (min == INT_MAX) printf("TSP shortest path: %d \n", -1);
+    else printf("TSP shortest path: %d \n", min);
     free(distances);
     free(arrOriginal);
     free(arr);
