@@ -11,6 +11,7 @@ int main()
 
 	while (c != 'E' && c != EOF)
 	{
+		if (getchar() == EOF) break;
 		if (c == 'A')
 		{
 			deleteGraph_cmd(head);
