@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -g -Wall
 
-all: run
+all: graph
 
 graph.o: graph.c graph.h
 	$(CC) $(CFLAGS) -c graph.c -o graph.o
@@ -9,11 +9,11 @@ graph.o: graph.c graph.h
 main.o: main.c graph.h graph.o
 	$(CC) $(CFLAGS) -c main.c -o main.o
 
-run: main.o graph.o
-	$(CC) $(CFLAGS) main.o graph.o -o run
+graph: main.o graph.o
+	$(CC) $(CFLAGS) main.o graph.o -o graph
 
 
 .PHONY: all clean
 
 clean:
-	rm run *.o
+	rm graph *.o
