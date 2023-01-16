@@ -7,16 +7,16 @@ typedef struct edge_ {
     int weight;
     pnode endpoint;
     struct edge_ *next;
-    pnode source;
-    struct edge_ *nextB;
+    pnode source; // added
+    struct edge_ *nextB; // added
 } edge, *pedge;
 
 
 typedef struct GRAPH_NODE_ {
     int node_num;
-    int distance;
     pedge edges;
     struct GRAPH_NODE_ *next;
+    int distance;// added
 } node, *pnode;
 
 pedge newEdge(int weight, pnode endpoint, pedge next);

@@ -5,6 +5,11 @@
 
 void printGraph_cmd(pnode head)
 {
+    if (head == NULL)
+    {
+        printf("the graph is empty!\n");
+        return;
+    }
     printf("node_num: %d | edges:", head->node_num);
     pedge e = head->edges;
     while (e != NULL)
@@ -54,7 +59,7 @@ void build_graph_cmd(pnode *head)
         printf("Invalid input\n");
         return;
     }
-    printf("13. got digit from input: %d\n", i);
+    // printf("13. got digit from input: %d\n", i);
 
     pnode prev, curr = NULL;
     i--;
@@ -124,27 +129,9 @@ char insert_node_cmd(pnode *head)
     }
     return 'a';
 }
-void shortsPath_cmd(pnode head)
+void belman_ford(pnode head, int sourceP)
 {
-    int i;
-    int result = scanf(" %d", &i);
-    if (result != 1)
-    {
-        printf("Invalid input\n");
-        exit(-1);
-    }
-    printf("18. got digit from input: %d\n", i);
-    int sourceP = i;
-    result = scanf(" %d", &i);
-    if (result != 1)
-    {
-        printf("Invalid input\n");
-        exit(-1);
-    }
-    printf("19. got digit from input: %d\n", i);
-    int destP = i;
-
-    // Initialize distances and edges for nodes
+    // initialization of added arrtibutes
     pnode p = head;
     pedge eList = NULL;
     pedge prev = NULL;
@@ -176,9 +163,7 @@ void shortsPath_cmd(pnode head)
         }
         p = p->next;
     }
-    // printf("finished initiation 45 \n");
-
-    // // Relax edges repeatedly
+    // Relax edges repeatedly
     p = head;
     while (p != NULL)
     {
@@ -196,22 +181,104 @@ void shortsPath_cmd(pnode head)
         }
         p = p->next;
     }
+}
+
+void shortsPath_cmd(pnode head)
+{
+    int i;
+    int result = scanf(" %d", &i);
+    if (result != 1)
+    {
+        printf("Invalid input\n");
+        exit(-1);
+    }
+    // printf("18. got digit from input: %d\n", i);
+    int sourceP = i;
+    result = scanf(" %d", &i);
+    if (result != 1)
+    {
+        printf("Invalid input\n");
+        exit(-1);
+    }
+    // printf("19. got digit from input: %d\n", i);
+    int destP = i;
+
+    belman_ford(head, sourceP);
 
     pnode pTheOne = head;
-    // printGraph_cmd(head);
     while (pTheOne->node_num != destP)
     {
         pTheOne = pTheOne->next;
     }
 
+    // printGraph_cmd(head);
     if (pTheOne->distance == INT_MAX)
     {
-        printf("%d to %d is : %d\n", sourceP, destP, -1);
+        printf("Dijsktra shortest path: %d\n", -1);
     }
     else
     {
-        printf("%d to %d is : %d\n", sourceP, destP, pTheOne->distance);
+        printf("Dijsktra shortest path: %d\n", pTheOne->distance);
     }
+}
+int permute(pnode *arr, int start, int end, int *distances, pnode *arrOriginal)
+{
+    int i;
+    if (start == end)
+    {
+        // print the permutation
+        for (i = 0; i <= end; i++)
+        {
+            // printf("%d ", arr[i]->node_num);
+        }
+        // printf(" | ");
+        // sums the permutation
+        int sum = 0;
+        for (i = 0; i < end; i++)
+        {
+            int k = 0, j = 0;
+            while (arr[i]->node_num != arrOriginal[j]->node_num)
+            {
+                j++;
+            }
+            while (arr[i + 1]->node_num != arrOriginal[k]->node_num)
+            {
+                k++;
+            }
+            // printf("(%d,%d)", arrOriginal[j]->node_num, arrOriginal[k]->node_num);
+            if (*(distances + j * (end + 1) + k) != INT_MAX)
+            {
+                // printf(" %d -> ", *(distances + j * (end + 1) + k));
+                sum += *(distances + j * (end + 1) + k);
+            }
+            else
+            {
+                // printf(" INFINITY | ");
+                sum = *(distances + j * (end + 1) + k);
+                break;
+            }
+        }
+        // printf("| sum  = %d\n", sum);
+        return sum;
+    }
+    int sum = INT_MAX;
+    for (i = start; i <= end; i++)
+    {
+        // swap the current element with the start element
+        pnode temp = arr[start];
+        arr[start] = arr[i];
+        arr[i] = temp;
+
+        // recursively permute the remaining elements
+        int num = permute(arr, start + 1, end, distances, arrOriginal);
+        if (num < sum)
+            sum = num;
+        // swap the elements back
+        temp = arr[start];
+        arr[start] = arr[i];
+        arr[i] = temp;
+    }
+    return sum;
 }
 
 void TSP_cmd(pnode head)
@@ -223,10 +290,12 @@ void TSP_cmd(pnode head)
         printf("Invalid input\n");
         exit(-1);
     }
-    printf("21. got digit from input: %d\n", i);
-    int length = i-1;
-    int *arr = (int*)malloc((sizeof(int)*length));
-    while (length > -1)
+    // printf("21. got digit from input: %d\n", i);
+    pnode *arr = (pnode *)malloc((sizeof(pnode) * i));
+    pnode *arrOriginal = (pnode *)malloc((sizeof(pnode) * i));
+    int countdown = i - 1;
+    int length = i;
+    while (countdown > -1)
     {
         result = scanf(" %d", &i);
         if (result != 1)
@@ -234,30 +303,103 @@ void TSP_cmd(pnode head)
             printf("Invalid input\n");
             exit(-1);
         }
-        printf("22. got digit from input: %d\n", i);
-        arr[length] = i;
-        length--;
+        // printf("22. got digit from input: %d\n", i);
+
+        pnode pTheOne = head;
+        while (pTheOne->node_num != i)
+        {
+            pTheOne = pTheOne->next;
+        }
+        arr[countdown] = (pnode)(pTheOne);
+        arrOriginal[countdown] = (pnode)(pTheOne);
+        countdown--;
+    }
+    int *distances = (int *)malloc(length * length * sizeof(int));
+    for (int j = 0; j < length; j++)
+    {
+        belman_ford(head, arr[j]->node_num);
+        for (int k = 0; k < length; k++)
+        {
+            *(distances + j * length + k) = arr[k]->distance;
+        }
     }
 
+    // for (int i = 0; i < length; i++)
+    // {
+    //     for (int j = 0; j < length; j++)
+    //     {
+    //         printf("%d ", *(distances + i * length + j));
+    //     }
+    //     printf("\n");
+    // }
+
+    int min = permute(arr, 0, length - 1, distances, arrOriginal);
+    if (min == INT_MAX) printf("TSP shortest path: %d\n", -1);
+    else printf("TSP shortest path: %d\n", min);
+    free(distances);
+    free(arrOriginal);
     free(arr);
 }
-// // for self debug
-// void deleteGraph_cmd(pnode *head)
-// {
-// }
+void delete_edge(pnode head, int node_num)
+{
+    // TODO need to verify there isn't an edge such that edge->nextB = e
+    pedge e = head->edges;
+    pedge prev = NULL;
+    while (e != NULL && e->endpoint->node_num != node_num)
+    {
+        prev = e;
+        e = e->next;
+    }
+    if (e != NULL)
+    {
+        if (prev != NULL)
+        {
+            prev->next = e->next;
+        }
+        else
+        {
+            head->edges = e->next;
+        }
+        e->nextB = NULL;
+        e->endpoint = NULL;
+        free(e);
+    }
+}
+
 void delete_node_cmd(pnode *head, int node_num)
 {
+    // deleting all nextB arrtibutes so it wont interupt the free function
     pnode prev = *head;
     pnode p = *head;
+
+    while (p != NULL)
+    {
+        pedge e = p->edges;
+
+        while (e != NULL)
+        {
+            e->nextB = NULL;
+            e = e->next;
+        }
+        // deleting all edges of p pointing onto requested node
+        delete_edge(p, node_num);
+        p = p->next;
+    }
+    // finding the requested node
+    prev = *head;
+    p = *head;
+
     while (p->node_num != node_num)
     {
         prev = p;
         p = p->next;
     }
-    prev->next = p->next;
+    if (p->node_num == (*head)->node_num)
+        *head = p->next;
+    else
+        prev->next = p->next;
     pedge e_root = p->edges;
-
-    while (e_root->next != NULL)
+    while (e_root != NULL && e_root->next != NULL)
     {
         pedge e = e_root;
         pedge e_prev = e_root;
@@ -268,10 +410,22 @@ void delete_node_cmd(pnode *head, int node_num)
         }
         e_prev->next = NULL;
         e->endpoint = NULL;
+        e->source = NULL;
+        e->nextB = NULL;
         free(e);
     }
     p->edges = NULL;
-    e_root->endpoint = NULL;
+    p->next = NULL;
+    if (e_root != NULL)
+        e_root->endpoint = NULL;
+
     free(e_root);
     free(p);
+}
+void deleteGraph_cmd(pnode *head)
+{
+    while ((*head) != NULL)
+    {
+        delete_node_cmd(head, (*head)->node_num);
+    }
 }
