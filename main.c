@@ -9,7 +9,7 @@ int main()
 	char c; // c the input from the user, ch1 for whitespace chars we will get in adition
 	scanf(" %c", &c);
 
-	while (c != 'E' || c != EOF)
+	while (c != 'E' && c != EOF)
 	{
 		if (c == 'A')
 		{
