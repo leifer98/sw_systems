@@ -78,8 +78,7 @@ char insert_node_cmd(pnode *head)
     int result = scanf(" %d", &i);
     if (result != 1)
     {
-        printf("Invalid input\n");
-        exit(-1);
+        return '0';
     }
     // printf("15. got digit from input: %d\n", i);
     pnode pTheOne = *head;
@@ -104,8 +103,7 @@ char insert_node_cmd(pnode *head)
         result = scanf(" %s", s);
         if (result != 1)
         {
-            printf("Invalid input\n");
-            return 0;
+            return '0';
         }
         // printf("16. got string from input: %s\n", s);
         if (s[0] < '0' || s[0] > '9')
@@ -114,8 +112,7 @@ char insert_node_cmd(pnode *head)
         result = scanf(" %d", &i);
         if (result != 1)
         {
-            printf("Invalid input\n");
-            exit(-1);
+            return '0';
         }
         // printf("17. got digit from input: %d\n", i);
         int weight = i, dest = atoi(s);
