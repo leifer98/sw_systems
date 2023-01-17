@@ -4,21 +4,18 @@
 
 int main()
 {
-	// pnode *head = (pnode *)malloc(sizeof(node));
-	pnode *head = (pnode *)calloc(1, sizeof(node));
-
+	pnode *head = (pnode *)malloc(sizeof(node));
+	// pnode *head = (pnode *)calloc(1, sizeof(node));
+	(*head) = newNode(0, NULL, NULL);
 	int check;
 	char c; // c the input from the user, ch1 for whitespace chars we will get in adition
 	check = scanf(" %c", &c);
 
-	while (c != 'E' && c != EOF && check == 1)
+	while (c != 'E' && check == 1)
 	{
-		if (getchar() == EOF)
-			break;
 		if (c == 'A')
 		{
-			if (*(head) != NULL)
-				deleteGraph_cmd(head);
+			deleteGraph_cmd(head);
 			build_graph_cmd(head);
 			scanf(" %c", &c);
 			while (c == 'n')
@@ -27,12 +24,16 @@ int main()
 				if (c == '0')
 					break;
 			}
+			// printGraph_cmd(*head);
+			// printf("-------------------------\n");
 		}
 		else if (c == 'B')
 		{
 			c = insert_node_cmd(head);
 			if (c == '0')
 				break;
+			// printGraph_cmd(*head);
+			// printf("-------------------------\n");
 		}
 		else if (c == 'D')
 		{
@@ -45,8 +46,6 @@ int main()
 		}
 		else if (c == 'T')
 		{
-			if (*(head) != NULL)
-				break;
 			TSP_cmd(*head);
 			check = scanf(" %c", &c);
 			if (check != 1)
@@ -54,14 +53,14 @@ int main()
 		}
 		else if (c == 'S')
 		{
-			if (*(head) != NULL)
-				break;
 			shortsPath_cmd(*head);
 			check = scanf(" %c", &c);
 			if (check != 1)
 				break;
 		}
 	}
+	printGraph_cmd(*head);
+	printf("-------------------------\n");
 	deleteGraph_cmd(head);
 	free(head);
 	return 0;

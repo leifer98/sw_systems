@@ -93,6 +93,29 @@ char insert_node_cmd(pnode *head)
         pTheOne->next = new;
         pTheOne = new;
     }
+    else
+    {
+        pedge e_root = pTheOne->edges;
+        while (e_root != NULL && e_root->next != NULL)
+        {
+            pedge e = e_root;
+            pedge e_prev = e_root;
+            while (e->next != NULL)
+            {
+                e_prev = e;
+                e = e->next;
+            }
+            e_prev->next = NULL;
+            e->endpoint = NULL;
+            e->source = NULL;
+            e->nextB = NULL;
+            free(e);
+        }
+        pTheOne->edges = NULL;
+        if (e_root != NULL)
+            e_root->endpoint = NULL;
+        free(e_root);
+    }
 
     pedge prev = NULL;
     while (1)
@@ -162,9 +185,13 @@ void belman_ford(pnode head, int sourceP)
     }
     // Relax edges repeatedly
     p = head;
+    pedge e = NULL;
     while (p != NULL)
     {
-        pedge e = eList;
+        if (eList != NULL)
+        {
+            e = eList;
+        }
         while (e != NULL)
         {
             pnode u = e->source;
@@ -290,6 +317,7 @@ void TSP_cmd(pnode head)
     // printf("21. got digit from input: %d\n", i);
     pnode *arr = (pnode *)malloc((sizeof(pnode) * i));
     pnode *arrOriginal = (pnode *)malloc((sizeof(pnode) * i));
+
     int countdown = i - 1;
     int length = i;
     while (countdown > -1)
@@ -331,8 +359,10 @@ void TSP_cmd(pnode head)
     // }
 
     int min = permute(arr, 0, length - 1, distances, arrOriginal);
-    if (min == INT_MAX) printf("TSP shortest path: %d \n", -1);
-    else printf("TSP shortest path: %d \n", min);
+    if (min == INT_MAX)
+        printf("TSP shortest path: %d \n", -1);
+    else
+        printf("TSP shortest path: %d \n", min);
     free(distances);
     free(arrOriginal);
     free(arr);
