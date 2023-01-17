@@ -59,8 +59,8 @@ int main()
 				break;
 		}
 	}
-	printGraph_cmd(*head);
-	printf("-------------------------\n");
+	// printGraph_cmd(*head);
+	// printf("-------------------------\n");
 	deleteGraph_cmd(head);
 	free(head);
 	return 0;

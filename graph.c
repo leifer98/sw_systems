@@ -155,6 +155,7 @@ void belman_ford(pnode head, int sourceP)
     pnode p = head;
     pedge eList = NULL;
     pedge prev = NULL;
+    int edgeCount = 0;
     while (p != NULL)
     {
         if (p->node_num == sourceP)
@@ -176,6 +177,7 @@ void belman_ford(pnode head, int sourceP)
                 {
                     prev->nextB = e;
                 }
+                edgeCount++;
                 prev = e;
                 e->source = p;
                 e = e->next;
@@ -185,14 +187,10 @@ void belman_ford(pnode head, int sourceP)
     }
     // Relax edges repeatedly
     p = head;
-    pedge e = NULL;
     while (p != NULL)
     {
-        if (eList != NULL)
-        {
-            e = eList;
-        }
-        while (e != NULL)
+        pedge e = eList;
+        for (int i = 0; i < edgeCount; i++)
         {
             pnode u = e->source;
             pnode v = e->endpoint;
